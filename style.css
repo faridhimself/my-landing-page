@@ -10960,3 +10960,44 @@ a:focus {
 
 /* end footer section*/
 /*# sourceMappingURL=style.css.map */
+/* Align navigation and buttons */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: #f0f0f0;
+}
+
+.navbar a {
+    margin: 0 10px;
+}
+
+.right-aligned {
+    display: flex;
+    gap: 10px;
+}
+
+/* Scrollable article headers */
+.scrollable-headers {
+    max-height: 100px;
+    overflow-y: scroll;
+    background-color: #f8f9fa;
+    border: 1px solid #ddd;
+    padding: 10px;
+    margin-bottom: 20px;
+}
+.scrollable-headers ul {
+    list-style-type: none;
+    padding: 0;
+}
+.scrollable-headers li {
+    margin-bottom: 5px;
+}
+.scrollable-headers a {
+    text-decoration: none;
+    color: #007bff;
+}
+.scrollable-headers a:hover {
+    text-decoration: underline;
+}
