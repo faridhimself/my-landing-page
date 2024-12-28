@@ -16,7 +16,7 @@
             font:14px Helvetica,Arial,sans-serif; 
             width: 100%;
             max-width: 600px;
-            margin: 0 auto;
+            margin: 2rem auto 0;
             padding: 20px;
             border-radius: 8px;
             box-shadow: var(--card-shadow);
@@ -39,6 +39,7 @@
             display: flex;
             gap: 1.5rem;
             margin-top: 1.5rem;
+            justify-content: center;
         }
         .social-icons a {
             font-size: 1.8rem;
@@ -49,15 +50,32 @@
             color: var(--accent-color);
             transform: translateY(-3px);
         }
-        .contact-sections {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 2rem;
-            margin-bottom: 3rem;
+        .contact-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        .contact-info {
+            margin-bottom: 2rem;
+            width: 100%;
+        }
+        .contact-item {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+        .contact-item i {
+            font-size: 1.5rem;
+            color: var(--primary-color);
         }
         @media (max-width: 768px) {
-            .contact-sections {
-                grid-template-columns: 1fr;
+            .contact-content {
+                padding: 0 1rem;
             }
         }
     </style>
@@ -85,7 +103,7 @@
             <div class="container">
                 <h1 class="section-title animate-on-scroll">Get in Touch</h1>
                 
-                <div class="contact-sections">
+                <div class="contact-content">
                     <!-- Personal Contact Information -->
                     <div class="contact-info animate-on-scroll">
                         <div class="contact-item">
@@ -95,10 +113,6 @@
                         <div class="contact-item">
                             <i class="fas fa-phone"></i>
                             <p>+36707434351</p>
-                        </div>
-                        <div class="contact-item">
-                            <i class="fas fa-location-dot"></i>
-                            <p>Amsterdam, Netherlands</p>
                         </div>
                         
                         <div class="social-icons">
@@ -137,22 +151,11 @@
                                     <div class="response" id="mce-success-response" style="display: none"></div>
                                 </div>
                                 <div aria-hidden="true" style="position: absolute; left: -5000px;">
-                                    <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups -->
                                     <input type="text" name="b_3e9a49a497d2d27b1d488944b_06ac7520da" tabindex="-1" value="">
                                 </div>
                                 <div class="optionalParent">
                                     <div class="clear foot">
                                         <input type="submit" name="subscribe" id="mc-embedded-subscribe" class="button" value="Subscribe">
-                                        <p style="margin: 0px auto;">
-                                            <a href="http://eepurl.com/i6TicU" title="Mailchimp - email marketing made easy and fun">
-                                                <span style="display: inline-block; background-color: transparent; border-radius: 4px;">
-                                                    <img class="refferal_badge" 
-                                                         src="https://digitalasset.intuit.com/render/content/dam/intuit/mc-fe/en_us/images/intuit-mc-rewards-text-dark.svg" 
-                                                         alt="Intuit Mailchimp" 
-                                                         style="width: 220px; height: 40px; display: flex; padding: 2px 0px; justify-content: center; align-items: center;">
-                                                </span>
-                                            </a>
-                                        </p>
                                     </div>
                                 </div>
                             </div>
