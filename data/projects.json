@@ -1,0 +1,31 @@
+[
+  {
+    "id": "1",
+    "title": "Empty Post 1",
+    "description": "Template for your first blog post.",
+    "image": "/placeholder.svg?height=200&width=400",
+    "link": "/projects/emptypost1"
+  },
+  {
+    "id": "2",
+    "title": "Empty Post 2",
+    "description": "Template for your second blog post.",
+    "image": "/placeholder.svg?height=200&width=400",
+    "link": "/projects/emptypost2"
+  },
+  {
+    "id": "3",
+    "title": "Empty Post 3",
+    "description": "Template for your third blog post.",
+    "image": "/placeholder.svg?height=200&width=400",
+    "link": "/projects/emptypost3"
+  },
+  {
+    "id": "4",
+    "title": "Empty Post 4",
+    "description": "Template for your fourth blog post.",
+    "image": "/placeholder.svg?height=200&width=400",
+    "link": "/projects/emptypost4"
+  }
+]
+
