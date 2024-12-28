@@ -2,7 +2,7 @@ import { Project } from '../types/project';
 
 export const projects: Project[] = [
   {
-    id: 'sql-project-001',
+    id: '1',
     title: 'SQL Data Analysis: Employee & Sales Insights',
     description: `
 **Project Overview**  
@@ -21,7 +21,7 @@ View the full project on GitHub:
 ---
 
 ### Example Code Snippet
-\`\`\`sql
+\`\`\`
 -- Example: Calculate the average monthly income for all employees
 SELECT 
     AVG(TotalMonthlyIncome) AS AvgIncome
@@ -40,11 +40,10 @@ ORDER BY AvgSalary DESC;
 
 ### How to Use
 1. **Clone** the repository from GitHub.  
-2. **Open** the `.sql` files in a SQL client (MySQL Workbench, Azure Data Studio, etc.).  
+2. **Open** the \`.sql\` files in a SQL client (MySQL Workbench, Azure Data Studio, etc.).  
 3. **Run** the queries to generate insights like average income, departmental performance, and more.
 `,
     category: 'data-analytics',
-    // Replace with your own image or screenshot if desired:
     imageUrl: 'https://via.placeholder.com/600x400?text=SQL+Project'
   },
 ];
