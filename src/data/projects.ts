@@ -2,38 +2,49 @@ import { Project } from '../types/project';
 
 export const projects: Project[] = [
   {
-    id: '1',
-    title: 'Customer Behavior Analysis',
-    description: 'Deep dive analysis of customer behavior patterns using advanced analytics techniques.',
+    id: 'sql-project-001',
+    title: 'SQL Data Analysis: Employee & Sales Insights',
+    description: `
+**Project Overview**  
+This project focuses on performing complex data analytics tasks on a fictional Employee and Sales database using SQL. It explores common business questions such as employee performance, income analysis, and sales trends.
+
+View the full project on GitHub:  
+[SQL Project Repository](https://github.com/faridhimself/SQL_Project)
+
+---
+
+### Key Objectives
+1. **Data Exploration** – Understand the structure and relationships of tables containing employees, salaries, and sales data.  
+2. **Performance Analysis** – Query employee data to uncover insights (e.g., average income, top-performing departments).  
+3. **Sales Insights** – (If applicable) Explore sales transactions to identify trends and revenue drivers.
+
+---
+
+### Example Code Snippet
+\`\`\`sql
+-- Example: Calculate the average monthly income for all employees
+SELECT 
+    AVG(TotalMonthlyIncome) AS AvgIncome
+FROM employees;
+
+-- Example: Identify departments with highest average salaries
+SELECT 
+    Department,
+    AVG(TotalMonthlyIncome) AS AvgSalary
+FROM employees
+GROUP BY Department
+ORDER BY AvgSalary DESC;
+\`\`\`
+
+---
+
+### How to Use
+1. **Clone** the repository from GitHub.  
+2. **Open** the `.sql` files in a SQL client (MySQL Workbench, Azure Data Studio, etc.).  
+3. **Run** the queries to generate insights like average income, departmental performance, and more.
+`,
     category: 'data-analytics',
-    imageUrl: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=800'
+    // Replace with your own image or screenshot if desired:
+    imageUrl: 'https://via.placeholder.com/600x400?text=SQL+Project'
   },
-  {
-    id: '2',
-    title: 'Product Performance Dashboard',
-    description: 'Interactive dashboard tracking key product metrics and KPIs.',
-    category: 'product-analytics',
-    imageUrl: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800'
-  },
-  {
-    id: '3',
-    title: 'Automated Reporting System',
-    description: 'Automated generation and distribution of business reports.',
-    category: 'reporting',
-    imageUrl: 'https://images.unsplash.com/photo-1553484771-047a44eee27b?auto=format&fit=crop&w=800'
-  },
-  {
-    id: '4',
-    title: 'Workflow Automation',
-    description: 'End-to-end automation of business processes using modern tools.',
-    category: 'automation',
-    imageUrl: 'https://images.unsplash.com/photo-1518432031352-d6fc5c10da5a?auto=format&fit=crop&w=800'
-  },
-  {
-    id: '5',
-    title: 'Predictive Analytics Model',
-    description: 'Machine learning model for predicting business outcomes.',
-    category: 'machine-learning',
-    imageUrl: 'https://images.unsplash.com/photo-1527474305487-b87b222841cc?auto=format&fit=crop&w=800'
-  }
 ];
