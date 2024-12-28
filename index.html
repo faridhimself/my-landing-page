@@ -6,31 +6,127 @@
     <title>Product Analytics</title>
     <meta name="description" content="Data-driven product insights and analytics solutions">
     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <header>
-        <nav>
-            <a href="/" class="logo">productanalytics.eu</a>
-            <ul>
-                <li><a href="/">Home</a></li>
-                <li><a href="/projects">Projects</a></li>
+    <header class="header">
+        <nav class="nav-container">
+            <a href="/" class="logo">productanalytics<span>.eu</span></a>
+            <div class="nav-toggle" id="navToggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="/" class="active">Home</a></li>
                 <li><a href="/services">Services</a></li>
+                <li><a href="/projects">Projects</a></li>
                 <li><a href="/contact">Contact</a></li>
             </ul>
         </nav>
     </header>
 
     <main>
-        <h1>Data-Driven Product Analytics</h1>
-        <p>Transform your product decisions with powerful analytics and insights. We help businesses make data-driven choices that drive growth and innovation.</p>
-        <a href="/projects" class="cta-button">View Our Projects</a>
+        <section class="hero">
+            <div class="hero-content">
+                <h1 class="animate-on-scroll">Data-Driven Product Analytics</h1>
+                <p class="hero-subtitle animate-on-scroll">Transform your product decisions with powerful analytics and insights</p>
+                <div class="cta-group animate-on-scroll">
+                    <a href="/contact" class="cta-button primary">Get Started</a>
+                    <a href="/projects" class="cta-button secondary">View Projects</a>
+                </div>
+            </div>
+            <div class="hero-image animate-on-scroll">
+                <div class="analytics-card">
+                    <i class="fas fa-chart-line"></i>
+                    <span class="stat">+145%</span>
+                    <span class="label">Growth</span>
+                </div>
+                <div class="analytics-card">
+                    <i class="fas fa-users"></i>
+                    <span class="stat">2.3M</span>
+                    <span class="label">Users</span>
+                </div>
+            </div>
+        </section>
+
+        <section class="featured-services">
+            <h2 class="section-title animate-on-scroll">What We Offer</h2>
+            <div class="services-grid">
+                <div class="service-card animate-on-scroll">
+                    <i class="fas fa-chart-pie"></i>
+                    <h3>Data Analysis</h3>
+                    <p>Transform raw data into actionable insights</p>
+                    <a href="/services" class="learn-more">Learn More <i class="fas fa-arrow-right"></i></a>
+                </div>
+                <div class="service-card animate-on-scroll">
+                    <i class="fas fa-bullseye"></i>
+                    <h3>Product Strategy</h3>
+                    <p>Data-driven decision making for product growth</p>
+                    <a href="/services" class="learn-more">Learn More <i class="fas fa-arrow-right"></i></a>
+                </div>
+                <div class="service-card animate-on-scroll">
+                    <i class="fas fa-rocket"></i>
+                    <h3>Growth Optimization</h3>
+                    <p>Optimize your product for maximum growth</p>
+                    <a href="/services" class="learn-more">Learn More <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+        </section>
+
+        <section class="featured-projects">
+            <h2 class="section-title animate-on-scroll">Featured Projects</h2>
+            <div class="projects-grid">
+                <div class="project-card animate-on-scroll">
+                    <div class="project-image">
+                        <i class="fas fa-mobile-alt"></i>
+                    </div>
+                    <h3>Empty Project 1</h3>
+                    <p>Project description goes here</p>
+                    <a href="/projects/emptyproject1" class="learn-more">Learn More <i class="fas fa-arrow-right"></i></a>
+                </div>
+                <div class="project-card animate-on-scroll">
+                    <div class="project-image">
+                        <i class="fas fa-shopping-cart"></i>
+                    </div>
+                    <h3>Empty Project 2</h3>
+                    <p>Project description goes here</p>
+                    <a href="/projects/emptyproject2" class="learn-more">Learn More <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+            <div class="text-center">
+                <a href="/projects" class="cta-button secondary">View All Projects</a>
+            </div>
+        </section>
     </main>
 
-    <footer>
-        <p>&copy; 2023 productanalytics.eu. All rights reserved.</p>
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>productanalytics<span>.eu</span></h3>
+                <p>Transform your product decisions with powerful analytics and insights.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-linkedin"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-github"></i></a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/services">Services</a></li>
+                    <li><a href="/projects">Projects</a></li>
+                    <li><a href="/contact">Contact</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 productanalytics.eu. All rights reserved.</p>
+        </div>
     </footer>
 
     <script src="script.js"></script>
 </body>
 </html>
-
