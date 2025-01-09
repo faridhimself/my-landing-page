@@ -85,7 +85,7 @@
             const blogGrid = document.getElementById('blogPosts');
             
             try {
-                const response = await fetch('posts.json');
+                const response = await fetch('/blog/posts.json');
                 if (!response.ok) {
                     throw new Error('Failed to load blog posts');
                 }
@@ -105,7 +105,7 @@
                 
                 posts.forEach(post => {
                     const postElement = document.createElement('a');
-                    postElement.href = `posts/${post.slug}/`;
+                    postElement.href = `/blog/posts/${post.slug}/`;
                     postElement.className = 'blog-card';
                     
                     postElement.innerHTML = `
