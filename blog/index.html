@@ -103,16 +103,17 @@
             
             try {
                 // Use absolute path for production
-                const postsUrl = window.location.hostname === 'localhost' 
-                    ? 'posts.json' 
-                    : '/blog/posts.json';
+                const postsUrl = '/blog/posts.json';
+                console.log('Fetching posts from:', postsUrl);
                 
                 const response = await fetch(postsUrl);
                 if (!response.ok) {
+                    console.error('Failed to fetch posts:', response.status, response.statusText);
                     throw new Error('Failed to load blog posts');
                 }
                 
                 const posts = await response.json();
+                console.log('Loaded posts:', posts);
                 
                 // Clear loading message
                 blogGrid.innerHTML = '';
@@ -129,10 +130,9 @@
                     const postElement = document.createElement('div');
                     postElement.className = 'blog-card animate-on-scroll';
                     
-                    // Use absolute paths for production
-                    const postUrl = window.location.hostname === 'localhost'
-                        ? `posts/${post.slug}/`
-                        : `/blog/posts/${post.slug}/`;
+                    // Create post URL
+                    const postUrl = `/blog/posts/${post.slug}/index.html`;
+                    console.log('Creating post card with URL:', postUrl);
                     
                     postElement.innerHTML = `
                         <div class="blog-card-content">
@@ -154,7 +154,7 @@
                 // Trigger animation for newly added elements
                 handleScrollAnimations();
             } catch (error) {
-                console.error('Error loading blog posts:', error);
+                console.error('Error in loadBlogPosts:', error);
                 blogGrid.innerHTML = '<div class="error-message">Failed to load blog posts. Please try again later.</div>';
             }
         }
@@ -163,7 +163,10 @@
         window.addEventListener('scroll', handleScrollAnimations);
         
         // Load posts when the page loads
-        window.addEventListener('load', loadBlogPosts);
+        window.addEventListener('load', () => {
+            console.log('Page loaded, fetching blog posts...');
+            loadBlogPosts();
+        });
     </script>
 </body>
 </html>
