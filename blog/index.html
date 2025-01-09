@@ -47,9 +47,14 @@
     </header>
 
     <main>
-        <div class="blog-grid" id="blogPosts">
-            <div class="loading-message">Loading blog posts...</div>
-        </div>
+        <section class="blog-page">
+            <div class="container">
+                <h1 class="section-title animate-on-scroll">Latest Insights</h1>
+                <div class="blog-grid" id="blogPosts">
+                    <div class="loading-message">Loading blog posts...</div>
+                </div>
+            </div>
+        </section>
     </main>
 
     <footer class="footer">
@@ -104,18 +109,20 @@
                 }
                 
                 posts.forEach(post => {
-                    const postElement = document.createElement('a');
-                    postElement.href = `/blog/posts/${post.slug}/`;
-                    postElement.className = 'blog-card';
+                    const postElement = document.createElement('div');
+                    postElement.className = 'blog-card animate-on-scroll';
                     
                     postElement.innerHTML = `
                         <div class="blog-card-content">
-                            <h2>${post.title}</h2>
-                            <div class="blog-card-date">${new Date(post.date).toLocaleDateString('en-US', {
+                            <h3>${post.title}</h3>
+                            <p class="blog-card-date">${new Date(post.date).toLocaleDateString('en-US', {
                                 year: 'numeric',
                                 month: 'long',
                                 day: 'numeric'
-                            })}</div>
+                            })}</p>
+                            <a href="/blog/posts/${post.slug}/" class="learn-more">
+                                Read More <i class="fas fa-arrow-right"></i>
+                            </a>
                         </div>
                     `;
                     
