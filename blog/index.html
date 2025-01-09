@@ -66,7 +66,7 @@
         // Load and display blog posts
         async function loadBlogPosts() {
             try {
-                const response = await fetch('/blog/posts.json');
+                const response = await fetch('posts.json');
                 const posts = await response.json();
                 
                 const blogGrid = document.getElementById('blogPosts');
@@ -76,13 +76,17 @@
                 
                 posts.forEach(post => {
                     const postElement = document.createElement('a');
-                    postElement.href = `/blog/posts/${post.slug}`;
+                    postElement.href = `posts/${post.slug}`;
                     postElement.className = 'blog-card';
                     
                     postElement.innerHTML = `
                         <div class="blog-card-content">
                             <h2>${post.title}</h2>
-                            <div class="blog-card-date">${new Date(post.date).toLocaleDateString()}</div>
+                            <div class="blog-card-date">${new Date(post.date).toLocaleDateString('en-US', {
+                                year: 'numeric',
+                                month: 'long',
+                                day: 'numeric'
+                            })}</div>
                         </div>
                     `;
                     
@@ -90,6 +94,8 @@
                 });
             } catch (error) {
                 console.error('Error loading blog posts:', error);
+                const blogGrid = document.getElementById('blogPosts');
+                blogGrid.innerHTML = '<div class="error-message">Failed to load blog posts. Please try again later.</div>';
             }
         }
 

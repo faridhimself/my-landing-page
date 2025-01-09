@@ -22,6 +22,7 @@
                 <li><a href="/" class="active">Home</a></li>
                 <li><a href="/services">Services</a></li>
                 <li><a href="/projects">Projects</a></li>
+                <li><a href="/blog">Blog</a></li>
                 <li><a href="/contact">Contact</a></li>
             </ul>
         </nav>
@@ -87,6 +88,16 @@
                 <a href="/projects" class="cta-button secondary">View All Projects</a>
             </div>
         </section>
+
+        <section class="featured-blog">
+            <h2 class="section-title animate-on-scroll">Latest Blog Posts</h2>
+            <div class="blog-grid" id="blogPosts">
+                <!-- Blog posts will be dynamically inserted here -->
+            </div>
+            <div class="text-center">
+                <a href="/blog" class="cta-button secondary">View All Posts</a>
+            </div>
+        </section>
     </main>
 
     <footer class="footer">
@@ -105,6 +116,7 @@
                     <li><a href="/">Home</a></li>
                     <li><a href="/services">Services</a></li>
                     <li><a href="/projects">Projects</a></li>
+                    <li><a href="/blog">Blog</a></li>
                     <li><a href="/contact">Contact</a></li>
                 </ul>
             </div>
@@ -115,5 +127,44 @@
     </footer>
 
     <script src="script.js"></script>
+    <script>
+        // Load and display featured blog posts
+        async function loadFeaturedBlogPosts() {
+            try {
+                const response = await fetch('blog/posts.json');
+                const posts = await response.json();
+                
+                const blogGrid = document.getElementById('blogPosts');
+                
+                // Sort posts by date (newest first) and take only the latest 3
+                posts.sort((a, b) => new Date(b.date) - new Date(a.date));
+                const featuredPosts = posts.slice(0, 3);
+                
+                featuredPosts.forEach(post => {
+                    const postElement = document.createElement('a');
+                    postElement.href = `blog/posts/${post.slug}`;
+                    postElement.className = 'blog-card animate-on-scroll';
+                    
+                    postElement.innerHTML = `
+                        <div class="blog-card-content">
+                            <h3>${post.title}</h3>
+                            <div class="blog-card-date">${new Date(post.date).toLocaleDateString('en-US', {
+                                year: 'numeric',
+                                month: 'long',
+                                day: 'numeric'
+                            })}</div>
+                        </div>
+                    `;
+                    
+                    blogGrid.appendChild(postElement);
+                });
+            } catch (error) {
+                console.error('Error loading blog posts:', error);
+            }
+        }
+
+        // Load posts when the page loads
+        window.addEventListener('load', loadFeaturedBlogPosts);
+    </script>
 </body>
 </html>
