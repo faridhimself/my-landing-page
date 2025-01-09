@@ -66,7 +66,7 @@
         // Load and display blog posts
         async function loadBlogPosts() {
             try {
-                const response = await fetch('posts.json');
+                const response = await fetch('./posts.json');
                 const posts = await response.json();
                 
                 const blogGrid = document.getElementById('blogPosts');
@@ -76,7 +76,7 @@
                 
                 posts.forEach(post => {
                     const postElement = document.createElement('a');
-                    postElement.href = `posts/${post.slug}`;
+                    postElement.href = `./posts/${post.slug}/`;
                     postElement.className = 'blog-card';
                     
                     postElement.innerHTML = `

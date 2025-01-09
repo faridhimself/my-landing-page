@@ -131,7 +131,7 @@
         // Load and display featured blog posts
         async function loadFeaturedBlogPosts() {
             try {
-                const response = await fetch('blog/posts.json');
+                const response = await fetch('./blog/posts.json');
                 const posts = await response.json();
                 
                 const blogGrid = document.getElementById('blogPosts');
@@ -142,7 +142,7 @@
                 
                 featuredPosts.forEach(post => {
                     const postElement = document.createElement('a');
-                    postElement.href = `blog/posts/${post.slug}`;
+                    postElement.href = `./blog/posts/${post.slug}/`;
                     postElement.className = 'blog-card animate-on-scroll';
                     
                     postElement.innerHTML = `
