@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Science Tools</title>
+    <meta name="description" content="Data Science Tools - Read about the latest insights in product analytics and data science">
+    <link rel="stylesheet" href="../../../styles.css">
+    <link rel="stylesheet" href="../../blog.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header class="header">
+        <nav class="nav-container">
+            <a href="/" class="logo">productanalytics<span>.eu</span></a>
+            <div class="nav-toggle" id="navToggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="/">Home</a></li>
+                <li><a href="/services">Services</a></li>
+                <li><a href="/projects">Projects</a></li>
+                <li><a href="/blog" class="active">Blog</a></li>
+                <li><a href="/contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="blog-post">
+        <article class="post-content">
+            <div class="post-meta-header">
+                <h1>Data Science Tools</h1>
+                <div class="post-date-header">January 09, 2025</div>
+            </div>
+
+            <h2>An Introduction to Data Science Tools</h2>
+
+<p>In today's data-driven world, the demand for data science skills has seen a significant upswing. With the explosion of data, data science tools have become an essential component for deriving insights and making informed decisions. These tools help data scientists to access, manipulate, analyze, and visualize data efficiently.</p> 
+
+<h2>Top Data Science Tools</h2>
+
+<p>There is a wide variety of data science tools available, each with its unique strengths and functionalities. In this post, we will delve into some of the most popular ones: Python, Jupyter Notebooks, and Pandas.</p>
+
+<h3>Python</h3>
+
+<p>Python is a powerful high-level, object-oriented programming language. It is widely used for developing desktop GUI applications, websites and web applications. Also, Python, with its powerful library set, is heavily used in Data Science operations.</p>
+
+<h3>Jupyter Notebook</h3>
+
+<p>Jupyter Notebook is an open-source web application that allows creation and sharing of documents that contain live code, equations, visualizations and narrative text. It is an ideal tool for data cleaning and transformation, numerical simulation, statistical modeling and machine learning.</p>
+
+<h3>Pandas</h3>
+
+<p>Pandas is a software library for Python programming language for data manipulation and analysis. It provides data structures and functions needed to manipulate structured data.</p>
+
+<h2>Practical Example: Data Analysis with Python and Pandas</h2>
+
+<p>Let's walk through an example of how Python and Pandas can be used for a simple data analysis task. Suppose we have a dataset of sales data, and we want to find out the total sales for each product category.</p>
+
+<pre><code>
+import pandas as pd
+
+# Load the data
+data = pd.read_csv('sales_data.csv')
+
+# Group by category and sum the sales
+category_totals = data.groupby('Category').Sales.sum()
+
+# Print the result
+print(category_totals)
+</code></pre>
+
+<p>This simple piece of code loads the sales data, groups it by product category, sums up the sales for each category, and prints the results.</p>
+
+<h2>Conclusion</h2>
+
+<p>Data Science tools like Python, Jupyter notebooks, and Pandas simplify the complex process of data analysis and make it accessible to everyone. They are powerful, flexible, and have a strong community support, making them an excellent choice for anyone looking to delve into data science.</p>
+
+<p>Whether you are a seasoned data scientist or just a beginner, mastering these tools can significantly enhance your data analysis skills and open up new opportunities for you in the exciting field of data science.</p>
+
+            <div class="post-navigation">
+                <a href="/blog" class="post-nav-link">
+                    <i class="fas fa-arrow-left"></i>
+                    Back to Blog
+                </a>
+            </div>
+        </article>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Contact</h3>
+                <p>Email: <a href="mailto:info@productanalytics.eu">info@productanalytics.eu</a></p>
+            </div>
+            <div class="footer-section">
+                <h3>Follow</h3>
+                <div class="social-links">
+                    <a href="https://twitter.com/productanalytics" target="_blank"><i class="fab fa-twitter"></i></a>
+                    <a href="https://linkedin.com/in/productanalytics" target="_blank"><i class="fab fa-linkedin"></i></a>
+                    <a href="https://github.com/productanalytics" target="_blank"><i class="fab fa-github"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 productanalytics.eu. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="../../script.js"></script>
+</body>
+</html>

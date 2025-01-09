@@ -66,83 +66,65 @@
         </div>
     </footer>
 
-    <script src="../script.js"></script>
     <script>
-        // Blog posts data
-        const blogPosts = [
-            {
-                title: "The Future of Product Analytics: AI-Driven Insights and Automated Decision Making",
-                slug: "the-future-of-product-analytics-ai-driven-insights-and-automated-decision-making",
-                date: "2025-01-09"
-            },
-            {
-                title: "Deep Learning in Product Development: From Feature Extraction to User Behavior Prediction",
-                slug: "deep-learning-in-product-development-from-feature-extraction-to-user-behavior-prediction",
-                date: "2025-01-08"
-            },
-            {
-                title: "Building a Real-time Analytics Pipeline: Architecture and Implementation Guide",
-                slug: "building-a-real-time-analytics-pipeline-architecture-and-implementation-guide",
-                date: "2025-01-07"
-            },
-            {
-                title: "The Psychology of Data Visualization: Making Analytics More Human-Centered",
-                slug: "the-psychology-of-data-visualization-making-analytics-more-human-centered",
-                date: "2025-01-06"
-            },
-            {
-                title: "Machine Learning for Customer Churn Prediction: A Practical Guide",
-                slug: "machine-learning-for-customer-churn-prediction-a-practical-guide",
-                date: "2025-01-05"
+        async function loadBlogPosts() {
+            const blogGrid = document.getElementById('blogPosts');
+            blogGrid.innerHTML = '<div class="loading-message">Loading blog posts...</div>';
+
+            try {
+                // Add cache-busting query parameter
+                const response = await fetch('posts.json?' + new Date().getTime());
+                const posts = await response.json();
+
+                blogGrid.innerHTML = '';
+                
+                posts.sort((a, b) => new Date(b.date) - new Date(a.date));
+
+                posts.forEach(post => {
+                    const postElement = document.createElement('article');
+                    postElement.className = 'blog-card animate-on-scroll';
+                    
+                    const formattedDate = new Date(post.date).toLocaleDateString('en-US', {
+                        year: 'numeric',
+                        month: 'long',
+                        day: 'numeric'
+                    });
+
+                    postElement.innerHTML = `
+                        <a href="posts/${post.slug}/index.html">
+                            <h2>${post.title}</h2>
+                            <div class="post-meta">
+                                <span class="post-date">${formattedDate}</span>
+                            </div>
+                        </a>
+                    `;
+                    
+                    blogGrid.appendChild(postElement);
+                });
+
+                handleScrollAnimations();
+            } catch (error) {
+                console.error('Error loading blog posts:', error);
+                blogGrid.innerHTML = '<div class="error-message">Error loading blog posts. Please try again later.</div>';
             }
-        ];
+        }
 
         // Function to handle scroll animations
         function handleScrollAnimations() {
             const elements = document.querySelectorAll('.animate-on-scroll');
             elements.forEach(element => {
                 const position = element.getBoundingClientRect();
-                if (position.top < window.innerHeight - 50) {
+                if (position.top < window.innerHeight) {
                     element.classList.add('visible');
                 }
             });
-        }
-
-        // Load and display blog posts
-        function loadBlogPosts() {
-            const blogGrid = document.getElementById('blogPosts');
-            blogGrid.innerHTML = ''; // Clear loading message
-            
-            blogPosts.forEach(post => {
-                const postElement = document.createElement('div');
-                postElement.className = 'blog-card animate-on-scroll';
-                
-                postElement.innerHTML = `
-                    <div class="blog-card-content">
-                        <h3>${post.title}</h3>
-                        <p class="blog-card-date">${new Date(post.date).toLocaleDateString('en-US', {
-                            year: 'numeric',
-                            month: 'long',
-                            day: 'numeric'
-                        })}</p>
-                        <a href="/blog/posts/${post.slug}/" class="learn-more">
-                            Read More <i class="fas fa-arrow-right"></i>
-                        </a>
-                    </div>
-                `;
-                
-                blogGrid.appendChild(postElement);
-            });
-
-            // Trigger animation for newly added elements
-            handleScrollAnimations();
         }
 
         // Add scroll event listener for animations
         window.addEventListener('scroll', handleScrollAnimations);
         
         // Load posts when the page loads
-        window.addEventListener('load', loadBlogPosts);
+        document.addEventListener('DOMContentLoaded', loadBlogPosts);
     </script>
 </body>
 </html>

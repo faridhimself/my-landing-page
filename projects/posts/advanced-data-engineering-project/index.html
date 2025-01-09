@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advanced Data Engineering Project - Product Analytics</title>
+    <meta name="description" content="This case study details the Advanced Data Engineering Project, a cutting-edge initiative that aimed to streamline data processing and analytics for product insights. The project faced complex technical challenges but delivered significant business impact and user benefits.">
+    <link rel="stylesheet" href="../../../styles.css">
+    <link rel="stylesheet" href="../../projects.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header class="header">
+        <nav class="nav-container">
+            <a href="/" class="logo">productanalytics<span>.eu</span></a>
+            <div class="nav-toggle" id="navToggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="/">Home</a></li>
+                <li><a href="/services">Services</a></li>
+                <li><a href="/projects" class="active">Projects</a></li>
+                <li><a href="/blog">Blog</a></li>
+                <li><a href="/contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <article class="project-page">
+            <div class="project-content">
+                <div class="project-meta-header">
+                    <div class="project-icon">
+                        <i class="fas fa-database"></i>
+                    </div>
+                    <h1>Advanced Data Engineering Project</h1>
+                    <div class="project-date">2025-01-09</div>
+                    <div class="project-tech">
+                        <span class="tech-tag">Python</span> <span class="tech-tag">Apache Kafka</span> <span class="tech-tag">Apache Spark</span>
+                    </div>
+                </div>
+                <h2>Introduction</h2> <p>The Advanced Data Engineering Project was an ambitious initiative to overhaul and optimize our data pipelines for product analytics. The project aimed to address significant performance issues, enable real-time analytics, and improve data quality. Key stakeholders included our data science team, product managers, and executive leadership.</p> <h2>Technical Challenge</h2> <p>We faced numerous challenges, including high data latency, poor scalability, and data inconsistency. Our initial approaches included batch processing and increasing hardware resources, but these failed to deliver the required performance improvements.</p> <h2>Solution Architecture</h2> <p>We developed a high-level system design using a combination of Python, Apache Kafka, and Apache Spark. Kafka served as the real-time messaging system, while Spark handled data processing tasks. Python was used for script development and to glue the system together.</p> <h2>Implementation Details</h2> <p>We used the Agile development methodology, with two-week sprints. Major features included real-time data ingestion, data cleansing, and analytics report generation. Here's a simplified code snippet showing how we utilized Apache Spark:</p> <pre><code>from pyspark.sql import SparkSession
+spark = SparkSession.builder.appName('dataProcessing').getOrCreate()
+data = spark.read.json('data.json')
+data.show()</code></pre> <p>Our testing approach involved unit tests, integration tests, and performance benchmarks.</p> <h2>Results and Impact</h2> <p>The project significantly improved data latency and scalability, with a 50% reduction in data processing time. The enhanced analytics capabilities also enabled more informed product decisions, leading to a 20% increase in user engagement. User feedback was overwhelmingly positive, and we learned valuable lessons about data pipeline optimization and real-time processing.</p>
+                <div class="project-navigation">
+                    <a href="/projects" class="project-nav-link">
+                        <i class="fas fa-arrow-left"></i> Back to Projects
+                    </a>
+                </div>
+            </div>
+        </article>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>productanalytics<span>.eu</span></h3>
+                <p>Transform your product decisions with powerful analytics and insights.</p>
+                <div class="social-links">
+                    <a href="https://www.linkedin.com/in/faridhimself/" target="_blank"><i class="fab fa-linkedin"></i></a>
+                    <a href="https://github.com/faridhimself/" target="_blank"><i class="fab fa-github"></i></a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/services">Services</a></li>
+                    <li><a href="/projects">Projects</a></li>
+                    <li><a href="/blog">Blog</a></li>
+                    <li><a href="/contact">Contact</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 productanalytics.eu. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="../../../script.js"></script>
+</body>
+</html>

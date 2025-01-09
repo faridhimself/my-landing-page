@@ -6,8 +6,9 @@
     <title>Projects - Product Analytics</title>
     <meta name="description" content="Data-driven product insights and analytics solutions">
     <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="projects.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 </head>
 <body>
     <header class="header">
@@ -31,25 +32,9 @@
     <main>
         <section class="projects-page">
             <div class="container">
-                <h1 class="section-title animate-on-scroll">Our Projects</h1>
-                <div class="projects-grid">
-                    <div class="project-card animate-on-scroll">
-                        <div class="project-image">
-                            <i class="fas fa-mobile-alt"></i>
-                        </div>
-                        <h3>Empty Project 1</h3>
-                        <p>Project description goes here</p>
-                        <a href="/projects/emptyproject1" class="learn-more">Learn More <i class="fas fa-arrow-right"></i></a>
-                    </div>
-                    <div class="project-card animate-on-scroll">
-                        <div class="project-image">
-                            <i class="fas fa-shopping-cart"></i>
-                        </div>
-                        <h3>Empty Project 2</h3>
-                        <p>Project description goes here</p>
-                        <a href="/projects/emptyproject2" class="learn-more">Learn More <i class="fas fa-arrow-right"></i></a>
-                    </div>
-                    <!-- Add more project cards as needed -->
+                <h1 class="section-title animate-on-scroll">Featured Projects</h1>
+                <div class="projects-grid" id="projectGrid">
+                    <div class="loading-message">Loading projects...</div>
                 </div>
             </div>
         </section>
@@ -81,6 +66,66 @@
         </div>
     </footer>
 
-    <script src="../script.js"></script>
+    <script>
+        async function loadProjects() {
+            const projectGrid = document.getElementById('projectGrid');
+            projectGrid.innerHTML = '<div class="loading-message">Loading projects...</div>';
+
+            try {
+                const response = await fetch('projects.json?' + new Date().getTime());
+                const projects = await response.json();
+
+                projectGrid.innerHTML = '';
+                
+                projects.sort((a, b) => new Date(b.date) - new Date(a.date));
+
+                projects.forEach(project => {
+                    const projectElement = document.createElement('article');
+                    projectElement.className = 'project-card animate-on-scroll';
+                    
+                    const formattedDate = new Date(project.date).toLocaleDateString('en-US', {
+                        year: 'numeric',
+                        month: 'long',
+                        day: 'numeric'
+                    });
+
+                    projectElement.innerHTML = `
+                        <div class="project-image">
+                            <i class="fas fa-chart-bar"></i>
+                        </div>
+                        <h3>${project.title}</h3>
+                        <div class="project-date">${formattedDate}</div>
+                        <a href="posts/${project.slug}/index.html" class="learn-more">View Case Study <i class="fas fa-arrow-right"></i></a>
+                    `;
+                    
+                    projectGrid.appendChild(projectElement);
+                });
+
+            } catch (error) {
+                console.error('Error loading projects:', error);
+                projectGrid.innerHTML = '<div class="error-message">Error loading projects. Please try again later.</div>';
+            }
+        }
+
+        function handleScrollAnimations() {
+            const elements = document.querySelectorAll('.animate-on-scroll');
+            elements.forEach(element => {
+                const rect = element.getBoundingClientRect();
+                const isVisible = rect.top <= window.innerHeight * 0.8;
+                if (isVisible) {
+                    element.classList.add('visible');
+                }
+            });
+        }
+
+        // Add scroll event listener for animations
+        window.addEventListener('scroll', handleScrollAnimations);
+        
+        // Load projects when the page loads
+        document.addEventListener('DOMContentLoaded', () => {
+            loadProjects();
+            handleScrollAnimations();
+        });
+    </script>
 </body>
 </html>

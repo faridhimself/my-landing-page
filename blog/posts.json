@@ -1,5 +1,20 @@
 [
     {
+        "title": "Data Science Tools",
+        "slug": "data-science-tools",
+        "date": "2025-01-09"
+    },
+    {
+        "title": "Product Manager vs Product Analyst",
+        "slug": "product-manager-vs-product-analyst",
+        "date": "2025-01-09"
+    },
+    {
+        "title": "What's 2025 trends in Product Analytics",
+        "slug": "whats-2025-trends-in-product-analytics",
+        "date": "2025-01-09"
+    },
+    {
         "title": "The Future of Product Analytics: AI-Driven Insights and Automated Decision Making",
         "slug": "the-future-of-product-analytics-ai-driven-insights-and-automated-decision-making",
         "date": "2025-01-09"
@@ -18,11 +33,6 @@
         "title": "The Psychology of Data Visualization: Making Analytics More Human-Centered",
         "slug": "the-psychology-of-data-visualization-making-analytics-more-human-centered",
         "date": "2025-01-06"
-    },
-    {
-        "title": "Advanced A/B Testing: Beyond Basic Statistical Significance",
-        "slug": "advanced-a-b-testing-beyond-basic-statistical-significance",
-        "date": "2025-01-09"
     },
     {
         "title": "Machine Learning for Customer Churn Prediction: A Practical Guide",
