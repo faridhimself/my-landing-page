@@ -153,27 +153,27 @@
 /* Mobile styles */
 @media screen and (max-width: 768px) {
     .blog-post {
-        padding: 6rem 1rem 2rem;
+        padding: 6rem 1rem 3rem;
     }
-
+    
+    .blog-grid {
+        padding: 6rem 1rem 3rem;
+        grid-template-columns: 1fr;
+    }
+    
     .post-content {
         padding: 1.5rem;
     }
-
+    
     .post-content h1 {
         font-size: 2rem;
     }
-
+    
     .post-content h2 {
-        font-size: 1.5rem;
+        font-size: 1.6rem;
     }
-
+    
     .post-content h3 {
-        font-size: 1.2rem;
-    }
-
-    .blog-grid {
-        grid-template-columns: 1fr;
-        padding: 6rem 1rem 2rem;
+        font-size: 1.3rem;
     }
 }

@@ -9,6 +9,23 @@
     <link rel="stylesheet" href="blog.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        .loading-message {
+            text-align: center;
+            padding: 2rem;
+            color: var(--text-color);
+            font-size: 1.2rem;
+        }
+        .error-message {
+            text-align: center;
+            color: #dc2626;
+            padding: 2rem;
+            background: #fee2e2;
+            border-radius: 8px;
+            margin: 2rem auto;
+            max-width: 600px;
+        }
+    </style>
 </head>
 <body>
     <header class="header">
@@ -31,7 +48,7 @@
 
     <main>
         <div class="blog-grid" id="blogPosts">
-            <!-- Blog posts will be dynamically inserted here -->
+            <div class="loading-message">Loading blog posts...</div>
         </div>
     </main>
 
@@ -65,18 +82,30 @@
     <script>
         // Load and display blog posts
         async function loadBlogPosts() {
+            const blogGrid = document.getElementById('blogPosts');
+            
             try {
-                const response = await fetch('./posts.json');
+                const response = await fetch('posts.json');
+                if (!response.ok) {
+                    throw new Error('Failed to load blog posts');
+                }
+                
                 const posts = await response.json();
                 
-                const blogGrid = document.getElementById('blogPosts');
+                // Clear loading message
+                blogGrid.innerHTML = '';
                 
                 // Sort posts by date (newest first)
                 posts.sort((a, b) => new Date(b.date) - new Date(a.date));
                 
+                if (posts.length === 0) {
+                    blogGrid.innerHTML = '<div class="loading-message">No blog posts available yet.</div>';
+                    return;
+                }
+                
                 posts.forEach(post => {
                     const postElement = document.createElement('a');
-                    postElement.href = `./posts/${post.slug}/`;
+                    postElement.href = `posts/${post.slug}/`;
                     postElement.className = 'blog-card';
                     
                     postElement.innerHTML = `
@@ -94,7 +123,6 @@
                 });
             } catch (error) {
                 console.error('Error loading blog posts:', error);
-                const blogGrid = document.getElementById('blogPosts');
                 blogGrid.innerHTML = '<div class="error-message">Failed to load blog posts. Please try again later.</div>';
             }
         }
