@@ -85,12 +85,24 @@
 
     <script src="../script.js"></script>
     <script>
+        // Function to handle scroll animations
+        function handleScrollAnimations() {
+            const elements = document.querySelectorAll('.animate-on-scroll');
+            elements.forEach(element => {
+                const position = element.getBoundingClientRect();
+                // Check if element is in viewport
+                if (position.top < window.innerHeight - 50) {
+                    element.classList.add('visible');
+                }
+            });
+        }
+
         // Load and display blog posts
         async function loadBlogPosts() {
             const blogGrid = document.getElementById('blogPosts');
             
             try {
-                const response = await fetch('/blog/posts.json');
+                const response = await fetch('posts.json');
                 if (!response.ok) {
                     throw new Error('Failed to load blog posts');
                 }
@@ -120,7 +132,7 @@
                                 month: 'long',
                                 day: 'numeric'
                             })}</p>
-                            <a href="/blog/posts/${post.slug}/" class="learn-more">
+                            <a href="posts/${post.slug}/" class="learn-more">
                                 Read More <i class="fas fa-arrow-right"></i>
                             </a>
                         </div>
@@ -128,12 +140,18 @@
                     
                     blogGrid.appendChild(postElement);
                 });
+
+                // Trigger animation for newly added elements
+                handleScrollAnimations();
             } catch (error) {
                 console.error('Error loading blog posts:', error);
                 blogGrid.innerHTML = '<div class="error-message">Failed to load blog posts. Please try again later.</div>';
             }
         }
 
+        // Add scroll event listener for animations
+        window.addEventListener('scroll', handleScrollAnimations);
+        
         // Load posts when the page loads
         window.addEventListener('load', loadBlogPosts);
     </script>
