@@ -23,5 +23,15 @@
         "title": "Advanced A/B Testing: Beyond Basic Statistical Significance",
         "slug": "advanced-a-b-testing-beyond-basic-statistical-significance",
         "date": "2025-01-09"
+    },
+    {
+        "title": "Introduction",
+        "slug": "introduction",
+        "date": "2025-01-09"
+    },
+    {
+        "title": "Machine Learning for Customer Churn Prediction: A Practical Guide",
+        "slug": "machine-learning-for-customer-churn-prediction-a-practical-guide",
+        "date": "2025-01-09"
     }
 ]

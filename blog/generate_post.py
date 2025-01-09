@@ -51,15 +51,9 @@ def generate_blog_post(topic):
         print(f"Error generating blog post: {e}")
         return None
 
-def create_blog_page(content):
-    # Extract title from the HTML content
-    title_match = re.search(r'<h1>(.*?)</h1>', content)
-    if not title_match:
-        return None
-    
-    title = title_match.group(1)
+def create_blog_page(content, topic):
     # Create URL-friendly slug
-    slug = re.sub(r'[^a-z0-9]+', '-', title.lower()).strip('-')
+    slug = re.sub(r'[^a-z0-9]+', '-', topic.lower()).strip('-')
     
     # Create directory for the blog post
     post_dir = f"blog/posts/{slug}"
@@ -71,8 +65,8 @@ def create_blog_page(content):
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{title}</title>
-    <meta name="description" content="{title}">
+    <title>{topic}</title>
+    <meta name="description" content="{topic}">
     <link rel="stylesheet" href="../../styles.css">
     <link rel="stylesheet" href="../blog.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
@@ -134,12 +128,10 @@ def create_blog_page(content):
 </html>'''
     
     with open(f"{post_dir}/index.html", "w", encoding='utf-8') as f:
-        # Escape any curly braces in the content to prevent template formatting issues
-        escaped_content = content.replace("{", "{{").replace("}", "}}")
-        f.write(post_template.format(content=escaped_content))
+        f.write(post_template.format(content=content))
     
     # Update blog index
-    update_blog_index(title, slug)
+    update_blog_index(topic, slug)
     
     return slug
 
@@ -162,33 +154,18 @@ def update_blog_index(title, slug):
         json.dump(posts, f, indent=4)
 
 def main():
-    topics = [
-        "The Future of Product Analytics: AI-Driven Insights and Automated Decision Making",
-        "Deep Learning in Product Development: From Feature Extraction to User Behavior Prediction",
-        "Building a Real-time Analytics Pipeline: Architecture and Implementation Guide",
-        "The Psychology of Data Visualization: Making Analytics More Human-Centered",
-        "Advanced A/B Testing: Beyond Basic Statistical Significance",
-        "Natural Language Processing for Product Feedback Analysis",
-        "Time Series Analysis for Product Usage Patterns and Forecasting",
-        "Data Ethics in Product Analytics: Privacy, Transparency, and Trust",
-        "Machine Learning Operations (MLOps) for Product Teams",
-        "Quantum Computing in Data Analytics: Preparing for the Next Revolution"
-    ]
+    topic = "Machine Learning for Customer Churn Prediction: A Practical Guide"
+    print(f"\nGenerating blog post about: {topic}")
     
-    for topic in topics:
-        print(f"\nGenerating blog post about: {topic}")
-        content = generate_blog_post(topic)
-        if content:
-            slug = create_blog_page(content)
-            if slug:
-                print(f"Created blog post: {slug}")
-            else:
-                print("Failed to create blog post")
+    content = generate_blog_post(topic)
+    if content:
+        slug = create_blog_page(content, topic)
+        if slug:
+            print(f"Created blog post: {slug}")
         else:
-            print("Failed to generate content")
-        
-        # Add a small delay between requests
-        time.sleep(2)
+            print("Failed to create blog post")
+    else:
+        print("Failed to generate content")
 
 if __name__ == "__main__":
     # Create necessary directories
