@@ -102,7 +102,12 @@
             const blogGrid = document.getElementById('blogPosts');
             
             try {
-                const response = await fetch('posts.json');
+                // Use absolute path for production
+                const postsUrl = window.location.hostname === 'localhost' 
+                    ? 'posts.json' 
+                    : '/blog/posts.json';
+                
+                const response = await fetch(postsUrl);
                 if (!response.ok) {
                     throw new Error('Failed to load blog posts');
                 }
@@ -124,6 +129,11 @@
                     const postElement = document.createElement('div');
                     postElement.className = 'blog-card animate-on-scroll';
                     
+                    // Use absolute paths for production
+                    const postUrl = window.location.hostname === 'localhost'
+                        ? `posts/${post.slug}/`
+                        : `/blog/posts/${post.slug}/`;
+                    
                     postElement.innerHTML = `
                         <div class="blog-card-content">
                             <h3>${post.title}</h3>
@@ -132,7 +142,7 @@
                                 month: 'long',
                                 day: 'numeric'
                             })}</p>
-                            <a href="posts/${post.slug}/" class="learn-more">
+                            <a href="${postUrl}" class="learn-more">
                                 Read More <i class="fas fa-arrow-right"></i>
                             </a>
                         </div>
