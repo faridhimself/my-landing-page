@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog - Product Analytics</title>
+    <meta name="description" content="Insights and articles about product analytics, data science, and more">
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="blog.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header class="header">
+        <nav class="nav-container">
+            <a href="/" class="logo">productanalytics<span>.eu</span></a>
+            <div class="nav-toggle" id="navToggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="/">Home</a></li>
+                <li><a href="/services">Services</a></li>
+                <li><a href="/projects">Projects</a></li>
+                <li><a href="/blog" class="active">Blog</a></li>
+                <li><a href="/contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <div class="blog-grid" id="blogPosts">
+            <!-- Blog posts will be dynamically inserted here -->
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>productanalytics<span>.eu</span></h3>
+                <p>Transform your product decisions with powerful analytics and insights.</p>
+                <div class="social-links">
+                    <a href="https://www.linkedin.com/in/faridhimself/" target="_blank"><i class="fab fa-linkedin"></i></a>
+                    <a href="https://github.com/faridhimself/" target="_blank"><i class="fab fa-github"></i></a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/services">Services</a></li>
+                    <li><a href="/projects">Projects</a></li>
+                    <li><a href="/blog">Blog</a></li>
+                    <li><a href="/contact">Contact</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 productanalytics.eu. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="../script.js"></script>
+    <script>
+        // Load and display blog posts
+        async function loadBlogPosts() {
+            try {
+                const response = await fetch('/blog/posts.json');
+                const posts = await response.json();
+                
+                const blogGrid = document.getElementById('blogPosts');
+                
+                // Sort posts by date (newest first)
+                posts.sort((a, b) => new Date(b.date) - new Date(a.date));
+                
+                posts.forEach(post => {
+                    const postElement = document.createElement('a');
+                    postElement.href = `/blog/posts/${post.slug}`;
+                    postElement.className = 'blog-card';
+                    
+                    postElement.innerHTML = `
+                        <div class="blog-card-content">
+                            <h2>${post.title}</h2>
+                            <div class="blog-card-date">${new Date(post.date).toLocaleDateString()}</div>
+                        </div>
+                    `;
+                    
+                    blogGrid.appendChild(postElement);
+                });
+            } catch (error) {
+                console.error('Error loading blog posts:', error);
+            }
+        }
+
+        // Load posts when the page loads
+        window.addEventListener('load', loadBlogPosts);
+    </script>
+</body>
+</html>
