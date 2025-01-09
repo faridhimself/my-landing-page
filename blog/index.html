@@ -72,8 +72,8 @@
             blogGrid.innerHTML = '<div class="loading-message">Loading blog posts...</div>';
 
             try {
-                // Add cache-busting query parameter
-                const response = await fetch('posts.json?' + new Date().getTime());
+                // Use absolute path and add cache-busting query parameter
+                const response = await fetch('/blog/posts.json?' + new Date().getTime());
                 const posts = await response.json();
 
                 blogGrid.innerHTML = '';
@@ -91,7 +91,7 @@
                     });
 
                     postElement.innerHTML = `
-                        <a href="posts/${post.slug}/index.html">
+                        <a href="/blog/posts/${post.slug}/index.html">
                             <h2>${post.title}</h2>
                             <div class="post-meta">
                                 <span class="post-date">${formattedDate}</span>

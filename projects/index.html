@@ -72,7 +72,7 @@
             projectGrid.innerHTML = '<div class="loading-message">Loading projects...</div>';
 
             try {
-                const response = await fetch('projects.json?' + new Date().getTime());
+                const response = await fetch('/projects/projects.json?' + new Date().getTime());
                 const projects = await response.json();
 
                 projectGrid.innerHTML = '';
@@ -95,7 +95,7 @@
                         </div>
                         <h3>${project.title}</h3>
                         <div class="project-date">${formattedDate}</div>
-                        <a href="posts/${project.slug}/index.html" class="learn-more">View Case Study <i class="fas fa-arrow-right"></i></a>
+                        <a href="/projects/posts/${project.slug}/index.html" class="learn-more">View Case Study <i class="fas fa-arrow-right"></i></a>
                     `;
                     
                     projectGrid.appendChild(projectElement);
