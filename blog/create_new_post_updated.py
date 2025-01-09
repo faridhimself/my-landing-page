@@ -100,25 +100,28 @@ def create_new_post():
     title_match = re.search(r'<h1>(.*?)</h1>', content)
     title = title_match.group(1) if title_match else topic
     
-    date = datetime.now().strftime('%Y-%m-%d')
+    # Generate slug and date
     slug = slugify(title)
+    date = datetime.now().strftime('%Y-%m-%d')
     
-    # Create post directory in the blog/posts folder
-    post_dir = os.path.join(script_dir, 'posts', slug)
-    os.makedirs(post_dir, exist_ok=True)
-    
-    # Create HTML file using the template
-    template = f'''<!DOCTYPE html>
+    try:
+        # Create post directory
+        post_dir = os.path.join(script_dir, 'posts', slug)
+        os.makedirs(post_dir, exist_ok=True)
+        
+        # Generate HTML
+        formatted_date = datetime.strptime(date, '%Y-%m-%d').strftime('%B %d, %Y')
+        html_content = f"""<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{title}</title>
-    <meta name="description" content="{title} - Read about the latest insights in product analytics and data science">
+    <title>{title} - Product Analytics Blog</title>
+    <meta name="description" content="Read about {title} in our product analytics blog">
     <link rel="stylesheet" href="../../../styles.css">
     <link rel="stylesheet" href="../../blog.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 </head>
 <body>
     <header class="header">
@@ -131,28 +134,29 @@ def create_new_post():
             </div>
             <ul class="nav-links">
                 <li><a href="/">Home</a></li>
-                <li><a href="/services">Services</a></li>
-                <li><a href="/projects">Projects</a></li>
-                <li><a href="/blog" class="active">Blog</a></li>
-                <li><a href="/contact">Contact</a></li>
+                <li><a href="/services/">Services</a></li>
+                <li><a href="/projects/">Projects</a></li>
+                <li><a href="/blog/" class="active">Blog</a></li>
+                <li><a href="/contact/">Contact</a></li>
             </ul>
         </nav>
     </header>
 
-    <main class="blog-post">
-        <article class="post-content">
-            <div class="post-meta-header">
-                <h1>{title}</h1>
-                <div class="post-date-header">{datetime.now().strftime('%B %d, %Y')}</div>
-            </div>
-
-            {content}
-
-            <div class="post-navigation">
-                <a href="/blog" class="post-nav-link">
-                    <i class="fas fa-arrow-left"></i>
-                    Back to Blog
-                </a>
+    <main>
+        <article class="blog-post">
+            <div class="container">
+                <header class="post-header">
+                    <h1>{title}</h1>
+                    <div class="post-meta">
+                        <div class="post-date">{formatted_date}</div>
+                    </div>
+                </header>
+                <div class="post-content">
+                    {content}
+                </div>
+                <div class="post-footer">
+                    <a href="/blog/" class="back-link"><i class="fas fa-arrow-left"></i> Back to Blog</a>
+                </div>
             </div>
         </article>
     </main>
@@ -160,16 +164,22 @@ def create_new_post():
     <footer class="footer">
         <div class="footer-content">
             <div class="footer-section">
-                <h3>Contact</h3>
-                <p>Email: <a href="mailto:info@productanalytics.eu">info@productanalytics.eu</a></p>
+                <h3>productanalytics<span>.eu</span></h3>
+                <p>Transform your product decisions with powerful analytics and insights.</p>
+                <div class="social-links">
+                    <a href="https://www.linkedin.com/in/faridhimself/" target="_blank"><i class="fab fa-linkedin"></i></a>
+                    <a href="https://github.com/faridhimself/" target="_blank"><i class="fab fa-github"></i></a>
+                </div>
             </div>
             <div class="footer-section">
-                <h3>Follow</h3>
-                <div class="social-links">
-                    <a href="https://twitter.com/productanalytics" target="_blank"><i class="fab fa-twitter"></i></a>
-                    <a href="https://linkedin.com/in/productanalytics" target="_blank"><i class="fab fa-linkedin"></i></a>
-                    <a href="https://github.com/productanalytics" target="_blank"><i class="fab fa-github"></i></a>
-                </div>
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/services/">Services</a></li>
+                    <li><a href="/projects/">Projects</a></li>
+                    <li><a href="/blog/">Blog</a></li>
+                    <li><a href="/contact/">Contact</a></li>
+                </ul>
             </div>
         </div>
         <div class="footer-bottom">
@@ -177,22 +187,28 @@ def create_new_post():
         </div>
     </footer>
 
-    <script src="../../script.js"></script>
+    <script>
+        // Mobile menu toggle
+        document.getElementById('navToggle').addEventListener('click', function() {
+            document.querySelector('.nav-links').classList.toggle('active');
+            this.classList.toggle('active');
+        });
+    </script>
 </body>
-</html>'''
-    
-    # Write the HTML file
-    with open(os.path.join(post_dir, 'index.html'), 'w', encoding='utf-8') as f:
-        f.write(template)
-    
-    # Update posts.json
-    update_posts_json(title, slug, date)
-    
-    print(f"\nBlog post created successfully!")
-    print(f"Title: {title}")
-    print(f"Slug: {slug}")
-    print(f"Date: {date}")
-    print(f"Location: {post_dir}")
+</html>"""
+        
+        # Write the HTML file
+        with open(os.path.join(post_dir, 'index.html'), 'w', encoding='utf-8') as f:
+            f.write(html_content)
+        
+        # Update posts.json
+        update_posts_json(title, slug, date)
+        
+        print(f"\nBlog post '{title}' has been created successfully!")
+        print(f"You can view it at: /blog/posts/{slug}/")
+        
+    except Exception as e:
+        print(f"Error creating blog post: {str(e)}")
 
 if __name__ == '__main__':
     create_new_post()

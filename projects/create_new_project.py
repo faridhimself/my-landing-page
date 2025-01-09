@@ -108,7 +108,7 @@ not actually running or implementing the project yourself.
         return None
 
 def update_projects_json(title, slug, date):
-    """Update projects.json with new project information."""
+    """Update projects.json with new project information"""
     script_dir = os.path.dirname(os.path.abspath(__file__))
     projects_file = os.path.join(script_dir, 'projects.json')
     
@@ -130,62 +130,68 @@ def update_projects_json(title, slug, date):
     with open(projects_file, 'w', encoding='utf-8') as f:
         json.dump(projects, f, indent=4, ensure_ascii=False)
 
-def create_project_card_html(project_data, title, slug):
-    """Generate the HTML snippet for a single project card."""
+def create_project_card_html(project_data, title, slug, date):
+    """Generate the HTML snippet for a single project card"""
+    description = project_data.get('description', '')
+    icon = project_data.get('icon', 'fa-chart-bar')
+    tech_tags = project_data.get('tech_tags', [])
+    
+    formatted_date = datetime.strptime(date, '%Y-%m-%d').strftime('%B %d, %Y')
+    
     return f"""
     <article class="project-card animate-on-scroll">
         <div class="project-image">
-            <i class="fas {project_data['icon']}"></i>
+            <i class="fas {icon}"></i>
         </div>
         <h3>{title}</h3>
-        <p>{project_data['description']}</p>
-        <div class="project-tech">
-            {''.join(f'<span class="tech-tag">{tag}</span>' for tag in project_data['tech_tags'])}
+        <p>{description}</p>
+        <div class="tech-tags">
+            {' '.join(f'<span class="tag">{tag}</span>' for tag in tech_tags)}
         </div>
-        <a href="/projects/posts/{slug}" class="learn-more">View Case Study <i class="fas fa-arrow-right"></i></a>
-    </article>"""
+        <div class="project-date">{formatted_date}</div>
+        <a href="/projects/posts/{slug}/" class="learn-more">View Case Study <i class="fas fa-arrow-right"></i></a>
+    </article>
+    """
 
 def update_projects_page(new_project_html):
-    """
-    Insert the newly generated project card at the top of 
-    the projects grid in index.html.
-    """
+    """Insert the newly generated project card at the top of the projects grid"""
     script_dir = os.path.dirname(os.path.abspath(__file__))
-    index_path = os.path.join(script_dir, 'index.html')
+    index_file = os.path.join(script_dir, 'index.html')
     
-    with open(index_path, 'r', encoding='utf-8') as f:
+    with open(index_file, 'r', encoding='utf-8') as f:
         content = f.read()
-
+    
     # Find the projects grid
-    grid_start = content.find('<div class="projects-grid">')
+    grid_start = content.find('<div class="projects-grid"')
     if grid_start == -1:
-        raise Exception("Could not find projects grid in index.html")
-        
-    # Find the closing </div> after the grid start
-    grid_content_start = grid_start + len('<div class="projects-grid">')
-    next_div = content.find('</div>', grid_content_start)
-    if next_div == -1:
-        raise Exception("Could not find end of projects grid")
+        raise ValueError("Could not find projects grid in index.html")
+    
+    # Find the first project card or loading message
+    insert_point = content.find('<article class="project-card"', grid_start)
+    if insert_point == -1:
+        insert_point = content.find('<div class="loading-message"', grid_start)
+    
+    if insert_point == -1:
+        raise ValueError("Could not find insertion point in index.html")
+    
+    # Insert the new project card
+    new_content = content[:insert_point] + new_project_html + content[insert_point:]
+    
+    with open(index_file, 'w', encoding='utf-8') as f:
+        f.write(new_content)
 
-    # Add the new project at the beginning of the grid
-    updated_content = (
-        content[:grid_content_start] +
-        '\n                    ' + new_project_html +
-        content[next_div:]
-    )
-
-    with open(index_path, 'w', encoding='utf-8') as f:
-        f.write(updated_content)
-
-def generate_project_html(title, content, slug, date):
-    """Generate the HTML for the individual project page."""
+def generate_project_html(title, content, slug, date, tech_tags):
+    """Generate the HTML for the individual project page"""
+    formatted_date = datetime.strptime(date, '%Y-%m-%d').strftime('%B %d, %Y')
+    tech_tags_html = ' '.join(f'<span class="tag">{tag}</span>' for tag in tech_tags)
+    
     return f"""<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{title} - Product Analytics</title>
-    <meta name="description" content="{content['description']}">
+    <title>{title} - Product Analytics Projects</title>
+    <meta name="description" content="Detailed case study of {title}">
     <link rel="stylesheet" href="../../../styles.css">
     <link rel="stylesheet" href="../../projects.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
@@ -202,32 +208,31 @@ def generate_project_html(title, content, slug, date):
             </div>
             <ul class="nav-links">
                 <li><a href="/">Home</a></li>
-                <li><a href="/services">Services</a></li>
-                <li><a href="/projects" class="active">Projects</a></li>
-                <li><a href="/blog">Blog</a></li>
-                <li><a href="/contact">Contact</a></li>
+                <li><a href="/services/">Services</a></li>
+                <li><a href="/projects/" class="active">Projects</a></li>
+                <li><a href="/blog/">Blog</a></li>
+                <li><a href="/contact/">Contact</a></li>
             </ul>
         </nav>
     </header>
 
     <main>
-        <article class="project-page">
-            <div class="project-content">
-                <div class="project-meta-header">
-                    <div class="project-icon">
-                        <i class="fas {content['icon']}"></i>
-                    </div>
+        <article class="project-post">
+            <div class="container">
+                <header class="post-header">
                     <h1>{title}</h1>
-                    <div class="project-date">{date}</div>
-                    <div class="project-tech">
-                        {' '.join([f'<span class="tech-tag">{tag}</span>' for tag in content['tech_tags']])}
+                    <div class="post-meta">
+                        <div class="post-date">{formatted_date}</div>
+                        <div class="tech-tags">
+                            {tech_tags_html}
+                        </div>
                     </div>
+                </header>
+                <div class="post-content">
+                    {content}
                 </div>
-                {content['full_content']}
-                <div class="project-navigation">
-                    <a href="/projects" class="project-nav-link">
-                        <i class="fas fa-arrow-left"></i> Back to Projects
-                    </a>
+                <div class="post-footer">
+                    <a href="/projects/" class="back-link"><i class="fas fa-arrow-left"></i> Back to Projects</a>
                 </div>
             </div>
         </article>
@@ -247,67 +252,86 @@ def generate_project_html(title, content, slug, date):
                 <h4>Quick Links</h4>
                 <ul>
                     <li><a href="/">Home</a></li>
-                    <li><a href="/services">Services</a></li>
-                    <li><a href="/projects">Projects</a></li>
-                    <li><a href="/blog">Blog</a></li>
-                    <li><a href="/contact">Contact</a></li>
+                    <li><a href="/services/">Services</a></li>
+                    <li><a href="/projects/">Projects</a></li>
+                    <li><a href="/blog/">Blog</a></li>
+                    <li><a href="/contact/">Contact</a></li>
                 </ul>
             </div>
         </div>
         <div class="footer-bottom">
-            <p>&copy; 2024 productanalytics.eu. All rights reserved.</p>
+            <p>&copy; 2025 productanalytics.eu. All rights reserved.</p>
         </div>
     </footer>
 
-    <script src="../../../script.js"></script>
+    <script>
+        // Mobile menu toggle
+        document.getElementById('navToggle').addEventListener('click', function() {
+            document.querySelector('.nav-links').classList.toggle('active');
+            this.classList.toggle('active');
+        });
+    </script>
 </body>
 </html>"""
 
 def create_project_page(project_data, title, slug, date):
-    """
-    Create the full detailed page for a single project.
-    """
+    """Create the full detailed page for a single project"""
     script_dir = os.path.dirname(os.path.abspath(__file__))
-    posts_dir = os.path.join(script_dir, 'posts', slug)
-    os.makedirs(posts_dir, exist_ok=True)
+    project_dir = os.path.join(script_dir, 'posts', slug)
     
-    html = generate_project_html(title, project_data, slug, date)
+    # Create project directory if it doesn't exist
+    os.makedirs(project_dir, exist_ok=True)
+    
+    # Generate HTML content
+    html_content = generate_project_html(
+        title=title,
+        content=project_data['full_content'],
+        slug=slug,
+        date=date,
+        tech_tags=project_data['tech_tags']
+    )
     
     # Write the HTML file
-    with open(os.path.join(posts_dir, 'index.html'), 'w', encoding='utf-8') as f:
-        f.write(html)
+    with open(os.path.join(project_dir, 'index.html'), 'w', encoding='utf-8') as f:
+        f.write(html_content)
 
 def main():
-    print("Welcome to the Project Generator!")
+    print("Welcome to the Project Creator!")
     title = input("Enter the project title: ")
-
-    # Generate slug
+    
+    # Generate slug from title
     slug = slugify(title)
     date = datetime.now().strftime('%Y-%m-%d')
-
-    # Generate project content using OpenAI
+    
+    print("\nGenerating project content...")
+    project_data = generate_project_content(title)
+    
+    if not project_data:
+        print("Failed to generate project content. Please try again.")
+        return
+    
     try:
-        project_data = generate_project_content(title)
-        if not project_data:
-            print("Failed to generate project content. Please try again.")
-            return
+        # Parse the JSON response
+        if isinstance(project_data, str):
+            project_data = json.loads(project_data)
         
         # Update projects.json
         update_projects_json(title, slug, date)
         
-        # Generate and add project card HTML
-        project_card_html = create_project_card_html(project_data, title, slug)
-        update_projects_page(project_card_html)
+        # Create project card
+        new_project_html = create_project_card_html(project_data, title, slug, date)
         
-        # Create detailed project page
+        # Update projects page
+        update_projects_page(new_project_html)
+        
+        # Create individual project page
         create_project_page(project_data, title, slug, date)
         
         print(f"\nProject '{title}' has been created successfully!")
-        print(f"Slug: {slug}")
-        print(f"Project page created at: projects/posts/{slug}")
+        print(f"You can view it at: /projects/posts/{slug}/")
         
     except Exception as e:
-        print(f"An error occurred: {str(e)}")
+        print(f"Error creating project: {str(e)}")
 
 if __name__ == "__main__":
     main()
